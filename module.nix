@@ -16,10 +16,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d /var/lib/open-design 0750 1001 1001 -"
-    ];
-
     virtualisation.oci-containers.containers.open-design = {
       image = "ghcr.io/nexu-io/od:latest";
       ports = [
@@ -37,7 +33,6 @@ in {
       };
 
       extraOptions = [
-        "--read-only"
         "--tmpfs=/tmp"
         "--security-opt=no-new-privileges:true"
         "--memory=384m"
