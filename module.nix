@@ -16,6 +16,14 @@ in {
   };
 
   config = mkIf cfg.enable {
+    
+    # Ensure a container backend exists and is functional natively
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
     virtualisation.oci-containers.containers.open-design = {
       image = "ghcr.io/nexu-io/od:latest";
       ports = [
